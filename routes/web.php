@@ -20,6 +20,7 @@ Route::get('/', function () {
 });
 
 Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
+Route::get('master', [HomeController::class, 'masterUser'])->name('master');
 
 Route::get('login', [LoginController::class, 'login'])->name('login');
 Route::post('loginApi', [LoginController::class, 'loginApi'])->name('loginApi');

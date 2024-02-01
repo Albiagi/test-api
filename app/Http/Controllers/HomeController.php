@@ -10,4 +10,9 @@ class HomeController extends Controller
     {
         return view('dashboard', ['ht' => 'Dashboard']);
     }
+
+    public function masterUser()
+    {
+        return view('master', ['ht' => 'Master Pengguna']);
+    }
 }
