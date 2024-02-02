@@ -1,7 +1,10 @@
 @extends('layout.main')
 
 @section('content')
-<div class="container-fluid">
+<div class="container-xxl">
+    {{-- navbar --}}
+        @include('additional.navbar')
+    {{-- navbar --}}
     <div class="row">
         <div class="sidebar" style="width: 21%">
             {{-- sidebar --}}
@@ -9,9 +12,6 @@
             {{-- sidebar --}}
         </div>
         <main class="col-md-9">
-            <div class="border-bottom d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
-                head
-            </div>
             <div class="col mt-5 ms-4">
                 <div class="row">
                     <div class="col">
