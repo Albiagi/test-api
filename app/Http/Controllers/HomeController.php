@@ -15,4 +15,9 @@ class HomeController extends Controller
     {
         return view('master', ['ht' => 'Master Pengguna']);
     }
+
+    public function add()
+    {
+        return view('add', ['ht' => 'Tambah Data']);
+    }
 }

@@ -6,16 +6,14 @@
         @include('additional.navbar')
     {{-- navbar --}}
     <div class="row">
-        <div class="sidebar" style="width: 21%">
-            {{-- sidebar --}}
+        {{-- sidebar --}}
             @include('additional.sidebar')
-            {{-- sidebar --}}
-        </div>
+        {{-- sidebar --}}
         <main class="col-md-9">
             <div class="col mt-5 ms-4">
                 <div class="row">
                     <div class="col">
-                        <a href="" class="btn btn-primary mb-3"><i class="bi bi-plus-circle"></i> Tambah</a>
+                        <a href="{{ url('master/create') }}" class="btn btn-primary mb-3"><i class="bi bi-plus-circle"></i> Tambah</a>
                     </div>
                     <div class="col">
                         <div class="input-group mb-3">
@@ -49,5 +47,4 @@
         </main>
     </div>
 </div>
-
 @endsection
