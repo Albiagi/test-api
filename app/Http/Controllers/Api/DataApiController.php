@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Client\Events\ResponseReceived;
 use Illuminate\Support\Facades\Validator;
 
 class DataApiController extends Controller
@@ -14,7 +15,12 @@ class DataApiController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::paginate(5);
+        return response()->json([
+            'status' => true,
+            'message' => 'Berhasil menampilkan data',
+            'Data' => $user,
+        ], $this->successStatus);
     }
 
     public $successStatus = 200;
@@ -49,22 +55,40 @@ class DataApiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::find($id);
+        return response()->json([
+            'status' => true,
+            'message' => 'User Data Found',
+            'data' => $user
+        ], $this->successStatus);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, user $user)
     {
-        //
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->c_password = $request->c_password;
+        $user->save();
+        return response()->json([
+            'status' => true,
+            'message' => 'Success update data',
+            'Data' => $user,
+        ], $this->successStatus);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(user $user)
     {
-        //
+        $user->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'Success Delete data.'
+        ], $this->successStatus);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DataApiController;
 use App\Http\Controllers\Api\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login', [LoginController::class, 'login'])->name('login');
 Route::post('create/user', [LoginController::class, 'create']);
+
+Route::get('data/list', [DataApiController::class, 'index']);
+Route::get('data/user/{id}', [DataApiController::class, 'show']);
+Route::post('data/create', [DataApiController::class, 'store']);
+Route::put('data/user/{id}', [DataApiController::class, 'update']);
+Route::delete('data/user/{id}', [DataApiController::class, 'destroy']);
 
 
 Route::middleware('auth:api')->group(function(){
