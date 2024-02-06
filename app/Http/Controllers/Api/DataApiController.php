@@ -66,13 +66,37 @@ class DataApiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, user $user)
+    public function update(Request $request, string $id)
     {
+        $user = User::find($id);
+        if(empty($user)){
+            return response()->json([
+                'status' => false,
+                'message' => 'Data not found'
+            ], 404);
+        }
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = $request->password;
-        $user->c_password = $request->c_password;
-        $user->save();
+        
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+
+        $input = $request->all();
+        $input['password'] = bcrypt($input['password']);
+        $success['token'] = $user->createToken('MyApp')->accessToken;
+        $success['name'] = $user->name;
+
+        $input = $user->save();
+
         return response()->json([
             'status' => true,
             'message' => 'Success update data',
@@ -83,12 +107,18 @@ class DataApiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(user $user)
+    public function destroy(string $id)
     {
+        $user = User::find($id);
         $user->delete();
         return response()->json([
             'status' => true,
             'message' => 'Success Delete data.'
         ], $this->successStatus);
+    }
+
+    public function search($name)
+    {
+        return User::where("name", $name)->get();
     }
 }

@@ -25,6 +25,7 @@ Route::post('create/user', [LoginController::class, 'create']);
 
 Route::get('data/list', [DataApiController::class, 'index']);
 Route::get('data/user/{id}', [DataApiController::class, 'show']);
+Route::get('search/{name}', [DataApiController::class, 'search']);
 Route::post('data/create', [DataApiController::class, 'store']);
 Route::put('data/user/{id}', [DataApiController::class, 'update']);
 Route::delete('data/user/{id}', [DataApiController::class, 'destroy']);
