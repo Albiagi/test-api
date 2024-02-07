@@ -11,20 +11,12 @@
         {{-- sidebar --}}
         <main class="col-md-9">
             <div class="col mt-5 ms-4">
-                <p class="fs-3 fw-bolder"><i class="bi bi-file-earmark"></i></i> Tambah Pengguna</p>
+                <p class="fs-3 fw-bolder"><i class="bi bi-file-earmark"></i></i> Edit Data Pengguna</p>
             </div>
             <form action="" method="POST">
+                @method('PUT')
                 @csrf
                 <div class="ms-5">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $item)
-                                    <li>{{ $item }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     <div class="mb-3 row">
                         <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
                         <div class="col">
@@ -49,7 +41,8 @@
                             <input type="password" name="c_password" class="form-control" style="width: 500px" id="c_password">
                         </div>
                     </div>
-                    <div style="margin-left: 62%">
+                    <div style="margin-left: 50%">
+                        <a href="{{ url('master') }}" class="btn btn-danger me-2" style="width: 100px">Back</a>
                         <button type="submit" class="btn btn-primary" style="width: 150px;">Submit</button>
                     </div>
                 </div>

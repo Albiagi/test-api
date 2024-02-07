@@ -7,7 +7,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ url('master') }}" class="nav-link {{ request()->is('master', 'master/create') ? 'active' : '' }}">
+            <a href="{{ url('master') }}" class="nav-link {{ request()->is('master', 'master/create', 'master/edit') ? 'active' : '' }}">
                 <i class="bi bi-person-circle"></i>
                 Master Pengguna
             </a>

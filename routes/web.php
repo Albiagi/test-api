@@ -22,6 +22,9 @@ Route::get('/', function () {
 Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
 Route::get('master', [HomeController::class, 'masterUser'])->name('master');
 Route::get('master/create', [HomeController::class, 'add'])->name('add');
+Route::get('master/edit', [HomeController::class, 'edit'])->name('edit');
+Route::post('master/create', [HomeController::class, 'store'])->name('store');
+Route::put('master/edit/{id}', [HomeController::class, 'editData'])->name('edit');
 
 Route::get('login', [LoginController::class, 'login'])->name('login');
 Route::post('loginApi', [LoginController::class, 'loginApi'])->name('loginApi');

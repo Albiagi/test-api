@@ -22,25 +22,29 @@
                         </div>
                     </div>
                 </div>
-                <table class="table table-bordered table-hover">
+                <table class="table table-sm table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                             <th >No</th>
                             <th style="width: 40%">Nama Pengguna</th>
-                            <th style="width: 40%">Email</th>
+                            <th style="width: 45%">Email</th>
                             <th >Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $i=1; ?>
+                        @foreach ($data as $item)
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Albiagi</td>
-                            <td>albyagiw@gmail.com</td>
+                            <td>{{ $i }}</td>
+                            <td>{{ $item['name'] }}</td>
+                            <td>{{ $item['email'] }}</td>
                             <td>
-                                <button class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></button>
-                                <button class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                                <a href="{{ url('master/edit') }}" class="btn btn-warning" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><i class="bi bi-pencil-square"></i></a>
+                                <button class="btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><i class="bi bi-trash"></i></button>
                             </td>
                         </tr>
+                        <?php $i++ ?>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

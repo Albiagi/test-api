@@ -15,11 +15,11 @@ class DataApiController extends Controller
      */
     public function index()
     {
-        $user = User::paginate(5);
+        $user = User::orderBy('name', 'asc')->get();
         return response()->json([
             'status' => true,
             'message' => 'Berhasil menampilkan data',
-            'Data' => $user,
+            'data' => $user,
         ], $this->successStatus);
     }
 
@@ -38,7 +38,11 @@ class DataApiController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json(['error' => $validator->errors()], 401);
+            return response()->json([
+                'status' => false,
+                'message' => 'Fails to create data',
+                'data' => $validator->errors(),
+            ], 401);
         }
 
         $input = $request->all();
@@ -47,7 +51,11 @@ class DataApiController extends Controller
         $success['token'] = $user->createToken('MyApp')->accessToken;
         $success['name'] = $user->name;
 
-        return response()->json(['success' => $success, 'message' => 'Success create data'], $this->successStatus);
+        return response()->json([
+            'status' => true,
+            'success' => $success, 
+            'message' => 'Success create data',
+        ], $this->successStatus);
     }
 
     /**
@@ -87,7 +95,11 @@ class DataApiController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json(['error' => $validator->errors()], 401);
+            return response()->json([
+                'status' => false,
+                'message' => 'Fails to update data',
+                'error' => $validator->errors(),
+            ], 401);
         }
 
         $input = $request->all();
@@ -100,7 +112,7 @@ class DataApiController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Success update data',
-            'Data' => $user,
+            'data' => $user,
         ], $this->successStatus);
     }
 
