@@ -16,40 +16,53 @@
             <form action="" method="POST">
                 @csrf
                 <div class="ms-5">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $item)
-                                    <li>{{ $item }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                    @include('notify.message')
                     <div class="mb-3 row">
                         <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
                         <div class="col">
-                            <input type="text" name="name" class="form-control" style="width: 500px" id="nama">
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" style="width: 500px" id="nama">
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="email" class="col-sm-3 col-form-label">Email</label>
                         <div class="col">
-                            <input type="email" name="email" class="form-control" style="width: 500px" id="email">
+                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" style="width: 500px" id="email">
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="password" class="col-sm-3 col-form-label">Password</label>
                         <div class="col">
-                            <input type="password" name="password" class="form-control" style="width: 500px" id="password">
+                            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" style="width: 500px" id="password">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="c_password" class="col-sm-3 col-form-label">Konfirmasi Password</label>
                         <div class="col">
-                            <input type="password" name="c_password" class="form-control" style="width: 500px" id="c_password">
+                            <input type="password" name="c_password" class="form-control @error('c_password') is-invalid @enderror" style="width: 500px" id="c_password">
+                            @error('c_password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
-                    <div style="margin-left: 62%">
+                    <div style="margin-left: 50%">
+                        <a href="{{ url('master') }}" class="btn btn-danger me-2" style="width: 100px">Back</a>
                         <button type="submit" class="btn btn-primary" style="width: 150px;">Submit</button>
                     </div>
                 </div>

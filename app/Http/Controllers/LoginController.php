@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -40,5 +41,12 @@ class LoginController extends Controller
         }catch(\Exception $e){
             return redirect()->back()->with('error', 'Login failed, Please try again.');
         }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        Session()->flush();
+        return redirect()->to('login')->with('success', 'Berhasil logout');
     }
 }

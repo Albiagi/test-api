@@ -22,6 +22,7 @@
                         </div>
                     </div>
                 </div>
+                @include('notify.message')
                 <table class="table table-sm table-striped table-bordered table-hover">
                     <thead>
                         <tr>
@@ -32,21 +33,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i=1; ?>
-                        @foreach ($data as $item)
+                        <?php $i=$data['from']; ?>
+                        @foreach ($data['data'] as $item)
                         <tr>
                             <td>{{ $i }}</td>
                             <td>{{ $item['name'] }}</td>
                             <td>{{ $item['email'] }}</td>
                             <td>
-                                <a href="{{ url('master/edit') }}" class="btn btn-warning" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><i class="bi bi-pencil-square"></i></a>
-                                <button class="btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><i class="bi bi-trash"></i></button>
+                                <a href="{{ url('master/edit/'.$item['id']) }}" class="btn btn-warning" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><i class="bi bi-pencil-square"></i></a>
+                                <form action="{{ url('master/user/'.$item['id']) }}" method="post" onsubmit="return confirm('Yakin akan menghapus data {{ $item['name'] }}?')" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" name="submit" class="btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><i class="bi bi-trash"></i></button>
+                                </form>
                             </td>
                         </tr>
                         <?php $i++ ?>
                         @endforeach
                     </tbody>
                 </table>
+                @if ($data['links'])
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination-sm">
+                            @foreach ($data['links'] as $item)
+                                <li class="page-item {{ $item['active']?'active' : '' }}"><a class="page-link" href="{{ $item['url2'] }}">{!! $item['label'] !!}</a></li>
+                            @endforeach
+                        </ul>
+                    </nav>
+                @endif
             </div>
         </main>
     </div>

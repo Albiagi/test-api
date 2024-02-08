@@ -7,13 +7,13 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ url('master') }}" class="nav-link {{ request()->is('master', 'master/create', 'master/edit') ? 'active' : '' }}">
+            <a href="{{ url('master') }}" class="nav-link {{ request()->is('master', 'master/create', 'master/edit/*') ? 'active' : '' }}">
                 <i class="bi bi-person-circle"></i>
                 Master Pengguna
             </a>
         </li>
         <li class="nav-item mt-4">
-            <a href="" class="nav-link">
+            <a href="{{ url('logout') }}" class="nav-link">
                 <i class="bi bi-box-arrow-left"></i>
                 Logout
             </a>

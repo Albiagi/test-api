@@ -15,7 +15,7 @@ class DataApiController extends Controller
      */
     public function index()
     {
-        $user = User::orderBy('name', 'asc')->get();
+        $user = User::orderBy('name', 'asc')->paginate(5);
         return response()->json([
             'status' => true,
             'message' => 'Berhasil menampilkan data',
@@ -35,6 +35,11 @@ class DataApiController extends Controller
             'email' => 'required|email',
             'password' => 'required',
             'c_password' => 'required|same:password',
+        ],[
+            'name.required' => 'Nama tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'password.required' => 'Password tidak boleh kosong',
+            'c_password.required' => 'Konfirmasi password tidak boleh kosong',
         ]);
 
         if($validator->fails()){
@@ -42,7 +47,7 @@ class DataApiController extends Controller
                 'status' => false,
                 'message' => 'Fails to create data',
                 'data' => $validator->errors(),
-            ], 401);
+            ]);
         }
 
         $input = $request->all();
@@ -64,11 +69,19 @@ class DataApiController extends Controller
     public function show(string $id)
     {
         $user = User::find($id);
-        return response()->json([
-            'status' => true,
-            'message' => 'User Data Found',
-            'data' => $user
-        ], $this->successStatus);
+        if($user){
+            return response()->json([
+                'status' => true,
+                'message' => 'User Data Found',
+                'data' => $user
+            ], $this->successStatus);
+        }else{
+            return response()->json([
+                'status' => false,
+                'message' => 'User data not found'
+            ]);
+        }
+        
     }
 
     /**
