@@ -47,10 +47,18 @@ class LoginController extends Controller
         return response()->json(['success' => $success, 'message' => 'Success create data'], $this->successStatus);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::user()->token()->revoke();
-        return response()->json(['success' => 'Logout Success'], $this->successStatus);
+        if (Auth::check()) {
+            Auth::user()->token()->revoke();
+            return response()->json([
+                'success' => 'Logout Success'
+            ], $this->successStatus);
+        } 
+        else{ 
+            return response()->json(['error'=>'Unauthorised'], 401);
+        } 
+        
     }
 
     public function details()

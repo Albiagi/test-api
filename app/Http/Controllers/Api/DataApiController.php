@@ -146,4 +146,15 @@ class DataApiController extends Controller
     {
         return User::where("name", $name)->get();
     }
+
+    public function countData()
+    {
+        $userData = User::count();
+        $userData->count();
+        return response()->json([
+            'status' => true,
+            'message' => 'Showing total data',
+            'data' => $userData
+        ]);
+    }
 }

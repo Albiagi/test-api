@@ -14,6 +14,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         $url = "http://127.0.0.1:8000/api/data/list?"; 
         $response = Http::get($url);
         $jsonData = $response->json();

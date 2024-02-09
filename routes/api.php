@@ -29,6 +29,7 @@ Route::get('search/{name}', [DataApiController::class, 'search']);
 Route::post('data/create', [DataApiController::class, 'store']);
 Route::put('data/user/{id}', [DataApiController::class, 'update']);
 Route::delete('data/user/{id}', [DataApiController::class, 'destroy']);
+Route::get('data/total', [DataApiController::class, 'countData']);
 
 
 Route::middleware('auth:api')->group(function(){
