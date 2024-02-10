@@ -18,7 +18,7 @@ class LoginController extends Controller
     public function loginApi(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|email:dns',
             'password' => 'required|max:12'
         ]);
         try{
@@ -42,6 +42,8 @@ class LoginController extends Controller
             return redirect()->back()->with('error', 'Login failed, Please try again.');
         }
     }
+
+
 
     public function logout(Request $request)
     {

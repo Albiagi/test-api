@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Middleware\AuthCheck;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +23,10 @@ Route::get('/', function () {
 
 Route::get('login', [LoginController::class, 'login'])->name('login');
 
-// CRUD
-Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
+Route::middleware(AuthCheck::class)->group(function(){
+    Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+});
 Route::get('master', [HomeController::class, 'masterUser'])->name('master');
 Route::get('master/create', [HomeController::class, 'add'])->name('add');
 Route::get('master/edit/{id}', [HomeController::class, 'edit'])->name('edit');

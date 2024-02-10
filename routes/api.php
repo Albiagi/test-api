@@ -31,7 +31,6 @@ Route::put('data/user/{id}', [DataApiController::class, 'update']);
 Route::delete('data/user/{id}', [DataApiController::class, 'destroy']);
 Route::get('data/total', [DataApiController::class, 'countData']);
 
-
 Route::middleware('auth:api')->group(function(){
     Route::post('logout', [LoginController::class, 'logout']);
     Route::get('user/list', [LoginController::class, 'details']);
