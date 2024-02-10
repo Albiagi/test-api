@@ -6,6 +6,7 @@ use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 
 class LoginController extends Controller
 {
@@ -28,6 +29,7 @@ class LoginController extends Controller
             $client = new Client();
             $response = $client->post('http://127.0.0.1:8000/api/login', [
                 'headers' => [
+                    'Accept' => 'Application/json',
                     'authorization' => 'bearer'.session()->get('token.access_token')
                 ],
                 'query' => [
@@ -35,7 +37,8 @@ class LoginController extends Controller
                     'password' => $password
                 ]
             ]);
-            $result = json_decode((string)$response->getBody(), true);
+
+            // $result = json_decode((string)$response->getBody(), true);
             // return dd($result);
             return redirect()->to('dashboard');
         }catch(\Exception $e){

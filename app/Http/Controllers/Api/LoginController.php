@@ -50,7 +50,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         if (Auth::check()) {
-            Auth::user()->token()->revoke();
+            Auth()->user()->token()->delete();
             return response()->json([
                 'success' => 'Logout Success'
             ], $this->successStatus);
