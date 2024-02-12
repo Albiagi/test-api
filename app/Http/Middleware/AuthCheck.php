@@ -16,19 +16,9 @@ class AuthCheck
      */
     public function handle(Request $request, Closure $next): Response
     {   
-        $response = $next($request);
-        $response->header('Accept', 'Application/json');
-
-        return $response;
-
-        // if(Auth::check()){
-        //     return $next($request);
-        // }
-        // return redirect()->to('login')->withErrors('Login invalid, please login');
-
-        // $request->headers->set('Accept', 'application/json');
-        // $request->headers->set('Content-Type', 'application/json');
-
-        // return $next($request);
+        if(Auth::check()){
+            return $next($request);
+        }
+        return redirect('login');
     }
 }

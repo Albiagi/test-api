@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,19 +19,22 @@ class LoginController extends Controller
     // Call login Api
     public function loginApi(Request $request)
     {
+        $url = "http://127.0.0.1:8000/api/login";
+        $access_token = $request->session()->get('token.access_token');
+
         $request->validate([
-            'email' => 'required|email:dns',
+            'email' => 'required|email',
             'password' => 'required|max:12'
         ]);
         try{
+            $http = new Client();
             $email = $request->email;
             $password = $request->password;
 
-            $client = new Client();
-            $response = $client->post('http://127.0.0.1:8000/api/login', [
+            $response = $http->post($url, [
                 'headers' => [
-                    'Accept' => 'Application/json',
-                    'authorization' => 'bearer'.session()->get('token.access_token')
+                    "Accept" => "Application/json",
+                    "authorization" => "Bearer".$access_token,
                 ],
                 'query' => [
                     'email' => $email,
@@ -38,8 +42,7 @@ class LoginController extends Controller
                 ]
             ]);
 
-            // $result = json_decode((string)$response->getBody(), true);
-            // return dd($result);
+            $result = json_decode((string)$response->getBody(), true);
             return redirect()->to('dashboard');
         }catch(\Exception $e){
             return redirect()->back()->with('error', 'Login failed, Please try again.');
@@ -52,7 +55,6 @@ class LoginController extends Controller
     {
         Auth::logout();
         $request->session()->flush();
-        $request->session()->regenerate();
         return redirect()->to('login')->with('success', 'Berhasil logout');
     }
 }

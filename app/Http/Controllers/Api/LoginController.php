@@ -21,7 +21,7 @@ class LoginController extends Controller
 
             return response()->json(['success' => $success, 'message' => 'Login Success'], $this->successStatus);
         }else{
-            return response()->json(['error' => 'Unauthorised'], 401);
+            return response()->json(['error' => 'Unauthorised'],);
         }
     }
 
