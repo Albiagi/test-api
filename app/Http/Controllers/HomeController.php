@@ -17,9 +17,10 @@ class HomeController extends Controller
 
         $url = "http://127.0.0.1:8000/api/data/list?"; 
         $response = Http::get($url);
-        $jsonData = $response->json();
-
-        return view('dashboard', $jsonData, ['ht' => 'Dashboard']);
+        $jsonData = $response->getBody()->getContents();
+        $dataArray = json_decode($jsonData, true);
+        $data = $dataArray['data'];
+        return view('dashboard', ['data' => $data], ['ht' => 'Dashboard']);
     }
     /**
      * show data in master pengguna

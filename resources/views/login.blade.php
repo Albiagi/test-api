@@ -6,7 +6,7 @@
 <br>
     <div class="container d-flex justify-content-center">
         <div class="mt-4 p-5 border shadow-sm" style="width: 450px">
-            <form action="{{ url('loginApi') }}" method="post">
+            <form action="{{ url('login') }}" method="post">
                 @csrf
                 <h2 class="text-center mb-5 fw-bolder">Login</h2>
                 

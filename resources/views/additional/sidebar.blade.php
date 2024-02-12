@@ -13,10 +13,13 @@
             </a>
         </li>
         <li class="nav-item mt-4">
-            <a href="{{ url('logout') }}" class="nav-link">
-                <i class="bi bi-box-arrow-left"></i>
-                Logout
-            </a>
+            <form action="{{ url('logout') }}" method="post">
+                @csrf
+                <button type="submit" class="nav-link">
+                    <i class="bi bi-box-arrow-left"></i>
+                    Logout
+                </button>
+            </form>
         </li>
     </ul>
 </div>
