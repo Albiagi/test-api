@@ -22,7 +22,7 @@ use App\Http\Controllers\LoginController;
 */
 
 
-Route::group([Authenticate::class], function(){
+Route::group([AuthCheck::class], function(){
     if(Auth::check()) {
         if(session()->get(["token"] == "")){
             return redirect()->to('dashboard');
